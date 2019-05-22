@@ -5,7 +5,7 @@
             <img src="../assets/loading.gif" >
         </div>
         <!-- 列表 -->
-        <div class="posts">
+        <div class="posts" v-else>
             <ul>
                 <li>
                     <div class="toobar">
@@ -51,35 +51,49 @@
                     </span>
 
                 </li>
+                <li>
+                  <!-- 分页 -->
+                  <pagination @handleList="renderList"></pagination>
+                </li>
             </ul>
         </div>
     </div>
 </template>
 
 <script>
+import pagination from "./Pagination";
 export default {
     name:'PostList',
     data(){
         return {
             isLoading:false,
-            posts:[]//代表页面的列表数组
+            posts:[],//代表页面的列表数组
+            postpage:1
         }
+    },
+    components:{
+      pagination
     },
     methods:{
         //getData:function(){}
         getData(){
             this.$http.get('https://cnodejs.org/api/v1/topics',{
-                page:1,
-                limit:20
+                params:{
+                  page:this.postpage,
+                  limit:20
+                }
             })
             .then(res=>{
-                console.log(res)
                 this.isLoading = false//加载成功,去除动画
                 this.posts=res.data.data
             })
             .catch((err)=>{
                 console.log(err)
             })
+        },
+        renderList(value){
+          this.postpage=value
+          this.getData()
         }
     },
     beforeMount() {
