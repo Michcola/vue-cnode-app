@@ -2,6 +2,7 @@
   <div id="app">
  <Header></Header> 
  <div class="main">
+   <router-view name="slidebar"></router-view>
    <router-view name="main"></router-view>
  </div>
   </div>
@@ -23,10 +24,5 @@ export default {
   .main{
     width:80%;
     margin:0 auto;
-  }
-  body{
-    background-color: #e1e1e1;
-    font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti,sans-serif!important;
-
   }
 </style>
