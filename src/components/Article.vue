@@ -31,12 +31,22 @@
                 <span>
                   {{index+1}} 楼
                 </span>
-                <span v-if="reply.ups.length>0" >
-                  👍 {{reply.ups.length}}
+                <!-- 最终回复时间 -->
+                <span class="reply_time">
+                  {{reply.create_at | formatDate}}
                 </span>
-                <span v-else>
+
+      <span v-if="reply.author.loginname===post.author.loginname" class="reply_by_author">作者</span>
+      <span v-else> </span> 
+                  <span class="dianzan" v-if="reply.ups.length>0" >
+                    👍 {{reply.ups.length}}
+                  </span>
+
+                  <span v-else>
+                  
+                  </span> 
                 
-                </span>  
+
                 </div>
                 <p v-html="reply.content"></p>
               </div>
@@ -159,5 +169,15 @@ export default {
 
   .markdown-text img {
     width: 92% !important;
+  }
+  .dianzan{
+    float: right;
+    padding: 10px 0 0 0 ;
+  }
+  .reply_by_author{
+     color: #fff !important;
+    background-color: #6ba44e;
+    padding: 2px;
+    font-size: 12px;
   }
 </style>
